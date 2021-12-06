@@ -26,15 +26,41 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        texasui.cpp
+        texasui.cpp \
+    judge.cpp \
+    poker.cpp \
+    round.cpp \
+    game_window.cpp \
+    round1.cpp \
+    var.cpp \
+    round2.cpp \
+    round3.cpp
 
 HEADERS += \
-        texasui.h
+        texasui.h \
+    judge.h \
+    poker.h \
+    jackpot.h \
+    player.h \
+    game_window.h \
+    round.h \
+    round1.h \
+    var.h \
+    round2.h \
+    round3.h
 
 FORMS += \
-        texasui.ui
+    texasui.ui \
+    your_poker_1.ui \
+    game_window.ui \
+    round1.ui \
+    round2.ui \
+    round3.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    res.qrc
