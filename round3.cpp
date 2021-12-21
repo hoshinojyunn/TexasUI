@@ -9,12 +9,36 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QMessageBox>
+#include <QFont>
+#include <QPalette>
 using namespace std;
 round3::round3(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::round3)
 {
     ui->setupUi(this);
+    QFont ft;
+    ft.setPointSize(12);
+    ui->label_11->setFont(ft);
+    ui->label_4->setFont(ft);
+    ui->label_3->setFont(ft);
+    ui->label_2->setFont(ft);
+    ui->label->setFont(ft);
+    //字号
+    QPalette pa;
+    QPalette bgc;
+    pa.setColor(QPalette::WindowText,Qt::red);
+    bgc.setColor(QPalette::Background,Qt::white);
+    ui->label_11->setPalette(pa);
+    ui->label_4->setPalette(pa);
+    ui->label_3->setPalette(pa);
+    ui->label_2->setPalette(pa);
+    ui->label->setPalette(pa);
+    ui->Widget_3->setAutoFillBackground(true);
+    ui->widget_2->setAutoFillBackground(true);
+    ui->Widget_3->setPalette(bgc);
+    ui->widget_2->setPalette(bgc);
+    //颜色
     init();
     ui->round_message->setText("ROUND fourth");
     qDebug()<<"build round3";
@@ -373,7 +397,7 @@ string round3::mechine_action(Player &player, Player &opponent,vector<pair<int,c
 void round3::paintEvent(QPaintEvent *){
     //qDebug()<<"paint the background";
     QPainter p(this);
-    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/background.jpg"));
+    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/meinvbackground.png"));
 }
 void round3::bigblind_player_fold(){
     player.fold(pot,opponent);
@@ -402,6 +426,7 @@ void round3::bigblind_player_allin(){
         pot.total-=opponent.bet-player.bet;
         opponent.bonus+=opponent.bet-player.bet;
         opponent.bet=player.bet;
+        update_message(player,opponent);
     }
     emit this->change_opponent();
 }
@@ -432,6 +457,7 @@ void round3::smallblind_player_allin(){
         pot.total-=opponent.bet-player.bet;
         opponent.bonus+=opponent.bet-player.bet;
         opponent.bet=player.bet;
+        update_message(player,opponent);
     }
     if(opponent.bet==player.bet){
         emit this->start_compare();
@@ -464,15 +490,18 @@ void round3::bigblind_opponent_judge(){
         enable();
         disable(player,opponent);
     }
-    if(plan=="fold"){
-        delete this;
-    }
+//    if(plan=="fold"){
+//        delete this;
+//    }
+    qDebug()<<"opponent's bet:"<<opponent.bet;
     if(opponent.bonus==0&&opponent.bet<player.bet){
         pot.total-=player.bet-opponent.bet;
         player.bonus+=player.bet-opponent.bet;
         player.bet=opponent.bet;
+        update_message(player,opponent);
     }
-    if(opponent.bet==player.bet&&plan!="follow"){
+
+    if(opponent.bet==player.bet&&plan!="follow"&&plan!="fold"){
         emit this->start_compare();
     }else{
         emit this->change_player();
@@ -504,13 +533,14 @@ void round3::smallblind_opponent_judge(){
         enable();
         disable(player,opponent);
     }
-    if(plan=="fold"){
-        delete this;
-    }
+//    if(plan=="fold"){
+//        delete this;
+//    }
     if(opponent.bonus==0&&opponent.bet<player.bet){
         pot.total-=player.bet-opponent.bet;
         player.bonus+=player.bet-opponent.bet;
         player.bet=opponent.bet;
+        update_message(player,opponent);
     }
     emit this->change_player();
 }

@@ -32,7 +32,7 @@ texasui::texasui(QWidget *parent) :
 }
 void texasui::paintEvent(QPaintEvent *){
     QPainter p(this);
-    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/background.jpg"));
+    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/meinvbackground.png"));
 }
 texasui::~texasui()
 {

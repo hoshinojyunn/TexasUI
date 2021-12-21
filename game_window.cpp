@@ -10,6 +10,8 @@
 #include <QPushButton>
 #include <QMessageBox>
 #include <QTimer>
+#include <QFont>
+#include <QPalette>
 using namespace std;
 game_window::game_window(QWidget *parent) :
     QMainWindow (parent),
@@ -17,6 +19,28 @@ game_window::game_window(QWidget *parent) :
 {
     qDebug()<<"build game_window";
     ui->setupUi(this);
+    QFont ft;
+    ft.setPointSize(12);
+    ui->label_11->setFont(ft);
+    ui->label_4->setFont(ft);
+    ui->label_3->setFont(ft);
+    ui->label_2->setFont(ft);
+    ui->label->setFont(ft);
+    //字号
+    QPalette pa;
+    QPalette bgc;
+    pa.setColor(QPalette::WindowText,Qt::red);
+    bgc.setColor(QPalette::Background,Qt::white);
+    ui->label_11->setPalette(pa);
+    ui->label_4->setPalette(pa);
+    ui->label_3->setPalette(pa);
+    ui->label_2->setPalette(pa);
+    ui->label->setPalette(pa);
+    ui->Widget_3->setAutoFillBackground(true);
+    ui->widget_2->setAutoFillBackground(true);
+    ui->Widget_3->setPalette(bgc);
+    ui->widget_2->setPalette(bgc);
+    //颜色
     this->init();
     ui->round_message->setText("ROUND first");
     setFixedSize(1200,800);
@@ -269,7 +293,7 @@ bool game_window::mechine_action(Player &player, Player &opponent,vector<pair<in
 void game_window::paintEvent(QPaintEvent *){
     //qDebug()<<"paint the background";
     QPainter p(this);
-    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/background.jpg"));
+    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/meinvbackground.png"));
 }
 
 game_window::~game_window()

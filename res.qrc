@@ -54,5 +54,6 @@
         <file>Image/13D.jpg</file>
         <file>Image/background.jpg</file>
         <file>Image/pokerback.jpg</file>
+        <file>Image/meinvbackground.png</file>
     </qresource>
 </RCC>

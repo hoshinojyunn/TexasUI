@@ -9,12 +9,36 @@
 #include <QPushButton>
 #include <QTimer>
 #include <QMessageBox>
+#include <QFont>
+#include <QPalette>
 using namespace std;
 round2::round2(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::round2)
 {
     ui->setupUi(this);
+    QFont ft;
+    ft.setPointSize(12);
+    ui->label_11->setFont(ft);
+    ui->label_4->setFont(ft);
+    ui->label_3->setFont(ft);
+    ui->label_2->setFont(ft);
+    ui->label->setFont(ft);
+    //字号
+    QPalette pa;
+    QPalette bgc;
+    pa.setColor(QPalette::WindowText,Qt::red);
+    bgc.setColor(QPalette::Background,Qt::white);
+    ui->label_11->setPalette(pa);
+    ui->label_4->setPalette(pa);
+    ui->label_3->setPalette(pa);
+    ui->label_2->setPalette(pa);
+    ui->label->setPalette(pa);
+    ui->Widget_3->setAutoFillBackground(true);
+    ui->widget_2->setAutoFillBackground(true);
+    ui->Widget_3->setPalette(bgc);
+    ui->widget_2->setPalette(bgc);
+    //颜色
     init();
     ui->round_message->setText("ROUND third");
     qDebug()<<"build round2";
@@ -57,8 +81,6 @@ round2::round2(QWidget *parent) :
         });
         /*机器*/
         connect(this,&round2::change_planer,[&](){
-            //this->mechine_action(player,opponent,River_Card,pot);
-            //opponent.check();
             if(opponent.bet<player.bet){
                 auto plan=this->mechine_action(player,opponent,River_Card,pot);
                 update_message(player,opponent);
@@ -284,7 +306,7 @@ string round2::mechine_action(Player &player, Player &opponent,vector<pair<int,c
 void round2::paintEvent(QPaintEvent *){
     //qDebug()<<"paint the background";
     QPainter p(this);
-    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/background.jpg"));
+    p.drawPixmap(0,0,this->width(),this->height(),QPixmap(":/Image/meinvbackground.png"));
 }
 round2::~round2()
 {
